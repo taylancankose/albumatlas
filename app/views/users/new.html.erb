@@ -1,0 +1,20 @@
+<%= turbo_frame_tag "modal" do %>
+    <div class="modal bg-white">
+        <div class="w-full ">
+    <div class="flex flex-col items-center pb-10">
+        <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="https://randomuser.me/api/portraits/women/96.jpg" alt="Bonnie image"/>
+        <h5 class="mb-1 text-xl font-medium text-gray-900 "><b>Title:</b> Bonnie Green</h5>
+        <span class="text-sm text-gray-500 "><b>Album Link:</b> Visual Designer</span>
+    </div>
+</div>
+        <div>
+            <%= link_to "Cancel", "#", data: {
+            controller: "modals",
+            action: "modals#close",
+        }, class: "cancel-button" %>
+        </div>
+    </div>
+<% end %>
+
+
+

@@ -1,0 +1,30 @@
+<div class="mt-14 px-5 container">
+  <form class="max-w-xl mx-auto mb-16">   
+    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label>
+    <div class="relative">
+      <input type="search" id="default-search" class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Kullanıcı ara" />
+      <div class="absolute inset-y-0 end-6 flex items-center ps-3 pointer-events-none">
+        <svg class="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+        </svg>
+      </div>
+    </div>
+  </form>
+
+  <div class="relative flex justify-between items-center md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 md:max-w-3xl border border-white bg-white">
+    <div class="w-2/5 md:w-1/5 bg-white grid place-items-center">
+      <img src="https://images.pexels.com/photos/4381392/pexels-photo-4381392.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="tailwind logo" class="rounded-xl" />
+    </div>
+    <div class=" bg-white flex flex-col space-y-2 p-3">
+      <h3 class="font-black text-gray-800 md:text-3xl text-xl">Name</h3>
+      <p class="md:text-lg text-gray-500 text-base">UserName</p>
+    </div>
+    <div class=" bg-white flex flex-col space-y-2 p-3">
+      <%= link_to show_path do %>
+        <i class="fa-solid fa-pen-to-square text-2xl"></i>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+ 
