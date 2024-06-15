@@ -1,43 +1,48 @@
-<div class="bg-gray-100 h-screen">
-    <div class="container mx-auto py-8 px-5">
-        <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
-            <div class="col-span-4 sm:col-span-3">
-                <div class="bg-white shadow rounded-lg p-6">
-                    <div class="flex flex-col items-center">
-                        <img src="https://randomuser.me/api/portraits/men/94.jpg" class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0" />
- 
-                        <h1 class="text-xl font-bold">John Doe</h1>
-                        <p class="text-gray-700">Software Developer</p>
-                    </div>
-                    <hr class="my-6 border-t border-gray-300">
-                    <div class="flex flex-col">
-                        <ul>
-                            <li class="mb-2">Email: john@doe.com</li>
-                            <li class="mb-2">Phone Number: +90XXX XXX XX XX</li>
-                            <li class="mb-2">Address: Karşıyaka, İzmir</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-span-4 sm:col-span-9">
-                <div class="rounded-lg p-6">
-                    <h2 class="text-xl font-bold mb-4">Album List</h2>
-                     <div class="relative flex items-center md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 md:max-w-3xl border border-white bg-white">
-                      <div class="w-2/5 md:w-1/5 bg-white grid place-items-center">
-                        <img src="https://images.pexels.com/photos/4381392/pexels-photo-4381392.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="tailwind logo" class="rounded-xl" />
-                      </div>
-                      <div class=" bg-white flex flex-col space-y-2 p-3">
-                        <h3 class="font-black text-gray-800 md:text-3xl text-xl">Name</h3>
-                        <p class="md:text-lg text-gray-500 text-base">UserName</p>
-                      </div>
-                    </div>
-                </div>
-            </div>
+<div class="bg-gray-100 h-full">
+  <div class="container mx-auto py-8 px-5">
+    <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
+      <div class="col-span-4 sm:col-span-3">
+        <div class="bg-white shadow rounded-lg p-6">
+          <div class="flex flex-col items-center">
+            <%= image_tag(@user.profile_photo, alt: @user.username, class: "w-32 h-32 object-cover bg-gray-300 rounded-full mb-4 shrink-0") %>
+            <h1 class="text-xl font-bold"><%= @user.name %></h1>
+            <p class="text-gray-700">@<%= @user.username.downcase %></p>
+          </div>
+          <hr class="my-6 border-t border-gray-300">
+          <div class="flex flex-col">
+            <ul>
+              <li class="mb-2"><b>Email:</b> <%= @user.email %></li>
+              <li class="mb-2"><b>Phone Number:</b> <%= @user.phone %></li>
+              <li class="mb-2"><b>Address:</b> <%= @user.address["street"] + ", " + @user.address["suite"] + ". " + @user.address["city"] + ", " + @user.address["zipcode"] %></li>
+            </ul>
+          </div>
         </div>
+      </div>
+      <div class="col-span-4 sm:col-span-9">
+        <div class="rounded-lg px-6">
+          <h2 class="text-xl font-bold mb-4">Album List</h2>
+          <% if @user.albums.any? %>
+            <% @user.albums.each do |album| %>
+              <% album.photos.each do |photo| %>
+                <div class="relative mt-4 flex items-center md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 md:max-w-3xl border border-white bg-white">
+                  <div class="w-2/5 md:w-1/5 bg-white grid place-items-center">
+                    <%= image_tag(photo.thumbnail_url, alt: photo.title, class: "rounded-xl w-32 h-32") %>
+                  </div>
+                  <div class="w-3/5 bg-white flex flex-col space-y-2 p-3">
+                    <h3 class="font-black text-gray-800 md:text-3xl text-lg w-[100%] md:max-w-lg"><%= photo.title %></h3>
+                    <p class="md:text-lg text-gray-500 text-base"><b>Album Title:</b> <%= album.title %></p>
+                  </div>
+                </div>
+              <% end %>
+             
+            <% end %>
+          <% else %>
+            <p>No albums found for this user.</p>
+          <% end %>
+        </div>
+     
+      </div>
     </div>
     <%= link_to "New", new_user_path, data: {turbo_frame: "modal"}, class: "text-red-400" %>
-
+  </div>
 </div>
-
-
-

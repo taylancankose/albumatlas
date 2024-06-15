@@ -1,14 +1,24 @@
- <div class="relative flex justify-between items-center md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 md:max-w-3xl border border-white bg-white">
-    <div class="w-2/5 md:w-1/5 bg-white grid place-items-center">
-      <img src="https://images.pexels.com/photos/4381392/pexels-photo-4381392.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="tailwind logo" class="rounded-xl" />
+  <% if user.errors.any? %>
+    <div id="error_explanation" class="text-red-500">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
-    <div class=" bg-white flex flex-col space-y-2 p-3">
-      <h3 class="font-black text-gray-800 md:text-3xl text-xl">Name</h3>
-      <p class="md:text-lg text-gray-500 text-base">UserName</p>
-    </div>
-    <div class=" bg-white flex flex-col space-y-2 p-3">
-      <%= link_to show_path do %>
-        <i class="fa-solid fa-pen-to-square text-2xl"></i>
-      <% end %>
-    </div>
+  <% end %>
+<div class="my-4 mx-auto relative flex justify-between items-center md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 md:max-w-3xl border border-white bg-white">
+  <div class="w-2/5 md:w-1/4 bg-white grid place-items-center">
+    <%= image_tag(user.profile_photo, alt: user.username, class: "rounded-xl") %>
   </div>
+  <div class=" bg-white flex flex-col space-y-2 p-3">
+    <h3 class="font-black text-gray-800 md:text-3xl text-xl"><%= user.name %></h3>
+    <p class="md:text-lg text-gray-500 text-base"><%= user.username %></p>
+  </div>
+  <div class=" bg-white flex flex-col space-y-2 p-3">
+    <%= link_to user_path(user) do %>
+      <i class="fa-solid fa-pen-to-square text-2xl"></i>
+    <% end %>
+  </div>
+</div>

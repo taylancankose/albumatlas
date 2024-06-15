@@ -70,3 +70,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem 'pagy', '~> 8.4', '>= 8.4.4'
