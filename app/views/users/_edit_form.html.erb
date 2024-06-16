@@ -1,0 +1,59 @@
+<div id="edit-user-modal-<%= user.id %>" class="z-50 fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full">
+    <div class="bg-white p-4">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">Edit User</h3>
+      <div class="mt-2">
+        <%= form_with(model: user, local: false, html: { id: "edit-user-form-#{user.id}" }) do |form| %>
+          <div class="mb-4">
+            <%= form.label :name, class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.text_field :name, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+          <div class="mb-4">
+            <%= form.label :username, class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.text_field :username, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+          <div class="mb-4">
+            <%= form.label :email, class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.email_field :email, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+          <div class="mb-4">
+            <%= form.label :phone, class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.telephone_field :phone, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="mb-4">
+                <%= form.label :address_street, "Street", class: "block text-gray-700 text-sm font-bold mb-2" %>
+                <%= form.text_field :address_street, value: user.address["street"], class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            </div>
+            <div class="mb-4">
+                <%= form.label :address_suite, "Suite", class: "block text-gray-700 text-sm font-bold mb-2" %>
+                <%= form.text_field :address_suite, value: user.address["suite"], class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="mb-4">
+                <%= form.label :address_city, "City", class: "block text-gray-700 text-sm font-bold mb-2" %>
+                <%= form.text_field :address_city, value: user.address["city"], class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            </div>
+            <div class="mb-4">
+                <%= form.label :address_zipcode, "Zipcode", class: "block text-gray-700 text-sm font-bold mb-2" %>
+                <%= form.text_field :address_zipcode, value: user.address["zipcode"], class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+            </div>
+          </div>
+          <div class="mb-4">
+            <%= form.label :profile_photo, "Profile Photo", class: "block text-gray-700 text-sm font-bold mb-2" %>
+            <%= form.text_field :profile_photo, value: user.profile_photo, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          </div>
+          <div class="flex items-center justify-between">
+            <%= form.submit "Save", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+      <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="document.getElementById('edit-user-modal-<%= user.id %>').classList.add('hidden')">
+        Close
+      </button>
+    </div>
+  </div>
+</div>

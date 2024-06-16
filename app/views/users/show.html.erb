@@ -3,6 +3,9 @@
     <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
       <div class="col-span-4 sm:col-span-3">
         <div class="bg-white shadow rounded-lg p-6">
+          <%= link_to  "#", onclick: "document.getElementById('edit-user-modal-#{@user.id}').classList.remove('hidden')", class: "cursor-pointer" do %>
+            <i class="fa-solid fa-pen-to-square text-2xl"></i>
+          <% end %>
           <div class="flex flex-col items-center">
             <%= image_tag(@user.profile_photo, alt: @user.username, class: "w-32 h-32 object-cover bg-gray-300 rounded-full mb-4 shrink-0") %>
             <h1 class="text-xl font-bold"><%= @user.name %></h1>
@@ -48,3 +51,4 @@
 
  
 
+<%= render 'users/edit_form', user: @user %>
