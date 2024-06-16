@@ -24,25 +24,27 @@
           <% if @user.albums.any? %>
             <% @user.albums.each do |album| %>
               <% album.photos.each do |photo| %>
-                <div class="relative mt-4 flex items-center md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 md:max-w-3xl border border-white bg-white">
-                  <div class="w-2/5 md:w-1/5 bg-white grid place-items-center">
-                    <%= image_tag(photo.thumbnail_url, alt: photo.title, class: "rounded-xl w-32 h-32") %>
+                <%= render 'modal', photo: photo, album: album %>
+                <%= link_to  "#", onclick: "document.getElementById('photo-modal-#{photo.id}').classList.remove('hidden')", class: "cursor-pointer" do %>
+                  <div class="relative mt-4 flex items-center md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 md:max-w-3xl border border-white bg-white">
+                    <div class="w-2/5 md:w-1/5 bg-white grid place-items-center">
+                      <%= image_tag(photo.thumbnail_url, alt: photo.title, class: "rounded-xl w-32 h-32") %>
+                    </div>
+                    <div class="w-3/5 bg-white flex flex-col space-y-2 p-3">
+                      <h3 class="font-black text-gray-800 md:text-3xl text-lg w-[100%] md:max-w-lg"><%= album.title %></h3>
+                    </div>
                   </div>
-                  <div class="w-3/5 bg-white flex flex-col space-y-2 p-3">
-                    <h3 class="font-black text-gray-800 md:text-3xl text-lg w-[100%] md:max-w-lg"><%= photo.title %></h3>
-                    <p class="md:text-lg text-gray-500 text-base"><b>Album Title:</b> <%= album.title %></p>
-                  </div>
-                </div>
+                <% end %>
               <% end %>
-             
             <% end %>
           <% else %>
             <p>No albums found for this user.</p>
           <% end %>
         </div>
-     
       </div>
     </div>
-    <%= link_to "New", new_user_path, data: {turbo_frame: "modal"}, class: "text-red-400" %>
   </div>
 </div>
+
+ 
+

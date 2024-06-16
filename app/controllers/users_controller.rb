@@ -22,6 +22,13 @@ class UsersController < ApplicationController
     render :index
   end
 
+  def show_photo
+    @photo = Photo.find(params[:photo_id])
+    respond_to do |format|
+      format.html 
+      format.turbo_stream
+    end
+  end
 
   private
 
@@ -60,6 +67,8 @@ class UsersController < ApplicationController
     end
   end
 
+
+
   def get_photos(album_id)
     uri = URI("https://jsonplaceholder.typicode.com/photos?albumId=#{album_id}")
     response = Net::HTTP.get(uri)
@@ -73,5 +82,9 @@ class UsersController < ApplicationController
         photo.thumbnail_url = photo_res['thumbnailUrl']
       end
     end
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :username, :email, :phone, :address)
   end
 end
