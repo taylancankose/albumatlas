@@ -76,7 +76,7 @@ class UsersController < ApplicationController
     uri = URI("https://jsonplaceholder.typicode.com/albums?userId=#{user_id}")
     response = Net::HTTP.get(uri)
     albums = JSON.parse(response)
-    if(!User.exists?)
+    if(!Album.exists?)
       albums.each do |album_res|
         album = Album.find_or_create_by!(id: album_res['id'], user_id: user_id) do |a|
           a.title = album_res['title']
