@@ -16,7 +16,9 @@
             <ul>
               <li class="mb-2"><b>Email:</b> <%= @user.email %></li>
               <li class="mb-2"><b>Phone Number:</b> <%= @user.phone %></li>
-              <li class="mb-2"><b>Address:</b> <%= @user.address["street"] + ", " + @user.address["suite"] + ". " + @user.address["city"] + ", " + @user.address["zipcode"] %></li>
+                <% if @user.address.present? %>
+                  <li class="mb-2"><b>Address:</b> <%= @user.address["street"] + ", " + @user.address["suite"] + ". " + @user.address["city"] + ", " + @user.address["zipcode"] %></li>
+                <% end %>
             </ul>
           </div>
         </div>

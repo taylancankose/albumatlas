@@ -20,6 +20,7 @@
             <%= form.label :phone, class: "block text-gray-700 text-sm font-bold mb-2" %>
             <%= form.telephone_field :phone, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
           </div>
+          <% if @user.address.present? %>
           <div class="flex items-center justify-between">
             <div class="mb-4">
                 <%= form.label :address_street, "Street", class: "block text-gray-700 text-sm font-bold mb-2" %>
@@ -40,6 +41,7 @@
                 <%= form.text_field :address_zipcode, value: user.address["zipcode"], class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
             </div>
           </div>
+          <%end %>
           <div class="mb-4">
             <%= form.label :profile_photo, "Profile Photo", class: "block text-gray-700 text-sm font-bold mb-2" %>
             <%= form.text_field :profile_photo, value: user.profile_photo, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>

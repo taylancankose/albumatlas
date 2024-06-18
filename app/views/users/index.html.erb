@@ -1,3 +1,5 @@
+
+
 <div class="mt-14 px-5 container">
   <%= form_with url: search_path, class: "max-w-xl mx-auto mb-16 flex", method: :get do |form| %>
     <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label>
@@ -11,6 +13,11 @@
     </div>
     <%= form.submit "Search", class: "ml-2 px-5 py-2.5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm " %>
   <%= button_to 'Clear', root_path, method: :get, class: "ml-2 px-5 py-2.5 text-gray-700 bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm" %>
+  <div class="container flex items-center justify-center">
+    <%= link_to  "#", onclick: "document.getElementById('edit-user-modal').classList.remove('hidden')", class: "cursor-pointer ml-2 px-5 py-2.5 text-gray-700 bg-purple-200 hover:bg-purple-300 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm items-center flex" do %>
+      Create User <i class="fa-solid fa-plus text-2xl ml-4"></i>
+    <% end %>
+  </div>
   <% end %>
 
   <% if @users.empty? %>
@@ -22,3 +29,5 @@
   <% end %>
 </div>
 
+
+<%= render 'users/new_user' %>
