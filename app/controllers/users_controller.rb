@@ -62,7 +62,6 @@ class UsersController < ApplicationController
     response = Net::HTTP.get(uri)
     users = JSON.parse(response)
 
-    if(!User.exists?)
       users.each do |user_data|
         profile_photo_uri = URI("https://picsum.photos/id/#{user_data["id"]}/info")
         res = Net::HTTP.get(profile_photo_uri)
@@ -77,7 +76,6 @@ class UsersController < ApplicationController
           user.address = user_data['address']
           user.profile_photo = photo["download_url"]
         end
-      end
     end
   end
 
