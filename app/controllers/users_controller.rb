@@ -82,35 +82,57 @@ class UsersController < ApplicationController
   end
 
   def get_albums(user_id)
-    uri = URI("https://jsonplaceholder.typicode.com/albums?userId=#{user_id}")
-    response = Net::HTTP.get(uri)
-    albums = JSON.parse(response)
-    if(!Album.exists?)
-      albums.each do |album_res|
-        album = Album.find_or_create_by!(id: album_res['id'], user_id: user_id) do |a|
-          a.title = album_res['title']
-        end
-        get_photos(album.id)
+    if Album.where(user_id: user_id).exists?
+      @albums = Album.where(user_id: user_id)
+    else
+      uri = URI("https://jsonplaceholder.typicode.com/albums?userId=#{user_id}")
+      response = Net::HTTP.get(uri)
+      albums = JSON.parse(response)
+      
+      album_data = albums.map do |album_res|
+        {
+          id: album_res['id'],
+          user_id: user_id,
+          title: album_res['title'],
+          created_at: Time.current,
+          updated_at: Time.current
+        }
       end
+  
+      Album.insert_all(album_data, unique_by: :id) unless album_data.empty?
+      @albums = Album.where(user_id: user_id)
+  
+      album_ids = albums.map { |album| album['id'] }
+      album_ids.each { |album_id| get_photos(album_id) }
     end
   end
-
-
 
   def get_photos(album_id)
-    uri = URI("https://jsonplaceholder.typicode.com/photos?albumId=#{album_id}")
-    response = Net::HTTP.get(uri)
-    photos = JSON.parse(response)
-    filtered_photos = photos.select { |photo| photo['albumId'] == album_id }.take(1)
-
-    filtered_photos.each do |photo_res|
-      Photo.find_or_create_by!(id: photo_res['id'], album_id: album_id) do |photo|
-        photo.title = photo_res['title']
-        photo.url = photo_res['url']
-        photo.thumbnail_url = photo_res['thumbnailUrl']
+    if Photo.where(album_id: album_id).exists?
+      @photos = Photo.where(album_id: album_id)
+    else
+      uri = URI("https://jsonplaceholder.typicode.com/photos?albumId=#{album_id}")
+      response = Net::HTTP.get(uri)
+      photos = JSON.parse(response)
+      filtered_photos = photos.select { |photo| photo['albumId'] == album_id }.take(1)
+  
+      photo_data = filtered_photos.map do |photo_res|
+        {
+          id: photo_res['id'],
+          album_id: album_id,
+          title: photo_res['title'],
+          url: photo_res['url'],
+          thumbnail_url: photo_res['thumbnailUrl'],
+          created_at: Time.current,
+          updated_at: Time.current
+        }
       end
+  
+      Photo.insert_all(photo_data, unique_by: :id) unless photo_data.empty?
+      @photos = Photo.where(album_id: album_id)
     end
   end
+  
 
   def user_params
     params.require(:user).permit(:name, :username, :email, :phone, :address, :profile_photo)
